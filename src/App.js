@@ -1,23 +1,41 @@
-import logo from './logo.svg';
 import './App.css';
+import {Table} from './Table'
 
 function App() {
+  const columns = [
+    { accessor: 'name', label: 'Name' },
+    { accessor: 'sales', label: 'Sales' },
+    { accessor: 'salary', label: 'Salary' },
+    { accessor: 'age', label: 'Age' },
+    { accessor: 'start_date', label: 'Start Date' },
+  ]
+
+  const rows = [
+    { id: 1, name: 'Jagjeet Singh', age: 26, sales: 333000, salary: 85000, start_date: '02-28-2017' },
+    { id: 2, name: 'Rahul', age: 25, sales: 313000, salary: 85000, start_date: '03-05-2019' },
+    { id: 3, name: 'Raj', age: 27, sales: 233000, salary: 79000, start_date: '07-12-2016' },
+    { id: 4, name: 'Anil', age: 33, sales: 10000, salary: 5000, start_date: '02-28-2022' },
+    { id: 5, name: 'Dev', age: 28, sales: 100000, salary: 45000, start_date: '01-01-2021' },
+    { id: 6, name: 'Karan', age: 42, sales: 150000, salary: 50000, start_date: '04-01-2019' },
+    { id: 7, name: 'Shanti', age: 36, sales: 25000, salary: 20000, start_date: '06-09-2021' },
+    { id: 8, name: 'Aakash', age: 36, sales: 250000, salary: 81000, start_date: '06-09-2019' },
+    { id: 9, name: 'Sunil', age: 33, sales: 310000, salary: 84000, start_date: '06-09-2015' },
+    { id: 10, name: 'Kranti', age: 22, sales: 410000, salary: 89000, start_date: '06-09-2014' },
+    { id: 11, name: 'Paural', age: 31, sales: 450000, salary: 92000, start_date: '06-09-2021' },
+    { id: 12, name: 'Mahima', age: 33, sales: 120000, salary: 47000, start_date: '06-09-2022' },
+    { id: 13, name: 'Aarv', age: 38, sales: 130000, salary: 48000, start_date: '06-09-2017' },
+    { id: 14, name: 'Aditya', age: 39, sales: 280000, salary: 48000, start_date: '06-09-2018' },
+    { id: 15, name: 'Shashwat', age: 24, sales: 290000,  salary: 80000, start_date: '06-09-2019' },
+    { id: 16, name: 'Dhruv', age: 31, sales: 210000, salary: 73000, start_date: '06-09-2019' },
+    { id: 17, name: 'Ankit', age: 31, sales: 350000, salary: 86000, start_date: '06-09-2017' },
+    { id: 18, name: 'Gautum', age: 30, sales: 50000, salary: 33000, start_date: '06-09-2020' },
+    { id: 19, name: 'Narnder', age: 36, sales: 70000, salary: 40000, start_date: '06-09-2021' }
+  ]
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h4>Users List</h4>
+      <Table rows={rows} columns={columns} />
     </div>
   );
 }
