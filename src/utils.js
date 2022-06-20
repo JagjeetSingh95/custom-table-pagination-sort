@@ -51,6 +51,7 @@ export function isEmpty(obj = {}) {
   }
   
   export function filterRows(rows, filters) {
+    console.log(rows, filters, "...rows, filters")
     if (isEmpty(filters)) return rows
   
     return rows.filter((row) => {
@@ -86,14 +87,11 @@ export function isEmpty(obj = {}) {
       const bLocale = convertType(b[orderBy])
   
       if (order === 'asc') {
-        return aLocale.localeCompare(bLocale, 'en', { numeric: isNumber(b[orderBy]) })
-      } else {
         return bLocale.localeCompare(aLocale, 'en', { numeric: isNumber(a[orderBy]) })
+      } else {
+        return aLocale.localeCompare(bLocale, 'en', { numeric: isNumber(b[orderBy]) })
+        
       }
     })
-  }
-  
-  export function paginateRows(sortedRows, activePage, rowsPerPage) {
-    return [...sortedRows].slice((activePage - 1) * rowsPerPage, activePage * rowsPerPage)
   }
   

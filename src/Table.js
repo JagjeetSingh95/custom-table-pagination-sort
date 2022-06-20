@@ -1,21 +1,33 @@
-import { useState, useMemo } from 'react'
-import { sortRows, filterRows, paginateRows } from './utils'
+import { useState, useMemo, useEffect } from 'react'
+import axios from 'axios'
+import { sortRows, filterRows } from './utils'
 import { Pagination } from './Pagination'
 
-export const Table = ({ columns, rows }) => {
+export const Table = ({ columns }) => {
   const [activePage, setActivePage] = useState(1)
   const [filters, setFilters] = useState({})
   const [sort, setSort] = useState({ order: 'asc', orderBy: 'id' })
+  const [rows, setRows] = useState([]);
   const rowsPerPage = 10
 
   const filteredRows = useMemo(() => filterRows(rows, filters), [rows, filters])
-  const sortedRows = useMemo(() => sortRows(filteredRows, sort), [filteredRows, sort])
-  const calculatedRows = paginateRows(sortedRows, activePage, rowsPerPage)
 
-  const count = filteredRows.length
-  const totalPages = Math.ceil(count / rowsPerPage)
+  useEffect(() => {
+    axios({
+      method: 'get',
+      url: `http://localhost:3000/users?_start=${activePage == 1 ? 0 : 10}&_limit=${rowsPerPage}`
+    })
+    .then(function (response) {
+      const { data } = response;
+      setRows(data)
+    }).catch((err)=> console.log(err));
+  }, [activePage])
+
+  const count = 20;
+  const totalPages = 2;
 
   const handleSort = (accessor) => {
+    sortRows(filteredRows, sort);
     setActivePage(1)
     setSort((prevSort) => ({
       order: prevSort.order === 'asc' && prevSort.orderBy === accessor ? 'desc' : 'asc',
@@ -70,7 +82,7 @@ export const Table = ({ columns, rows }) => {
           </tr>
         </thead>
         <tbody>
-          {calculatedRows.map((row, index) => {
+          {rows.map((row, index) => {
             return (
               <tr key={row.id}>
 								<td>{row.name}</td>
